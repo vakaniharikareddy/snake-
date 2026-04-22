@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-pixel: "Press Start 2P", ui-monospace, monospace;
+  --font-mono: "VT323", ui-monospace, monospace;
+}
+
+body {
+  background-color: black;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Screen tearing effect */
+.screen-tear {
+  animation: tear 4s infinite cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+@keyframes tear {
+  0%, 95% { transform: translateX(0) skewX(0); filter: none; }
+  96% { transform: translateX(20px) skewX(20deg); filter: invert(0.2) drop-shadow(4px 0 #FF00FF); }
+  97% { transform: translateX(-15px) skewX(-10deg); filter: invert(0); }
+  98% { transform: translateX(10px) skewX(5deg); filter: hue-rotate(90deg); }
+  99% { transform: translateX(0) skewX(0); filter: none; }
+}
+
+/* Glitch text effect - RGB Split */
+.glitch-text {
+  position: relative;
+  background: black;
+  display: inline-block;
+}
+.glitch-text::before, .glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #00FFFF;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #FF00FF;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(21px, 9999px, 86px, 0); transform: translate(0); }
+  10% { clip: rect(10px, 9999px, 40px, 0); transform: translate(-2px, 0); }
+  20% { clip: rect(60px, 9999px, 15px, 0); transform: translate(2px, 0); }
+  30% { clip: rect(45px, 9999px, 30px, 0); transform: translate(-2px, 0); }
+  40% { clip: rect(80px, 9999px, 70px, 0); transform: translate(2px, 0); }
+  50% { clip: rect(20px, 9999px, 10px, 0); transform: translate(-2px, 0); }
+  60% { clip: rect(90px, 9999px, 80px, 0); transform: translate(2px, 0); }
+  70% { clip: rect(100px, 9999px, 100px, 0); transform: translate(-2px, 0); }
+  80% { clip: rect(10px, 9999px, 60px, 0); transform: translate(2px, 0); }
+  90% { clip: rect(70px, 9999px, 40px, 0); transform: translate(-2px, 0); }
+  100% { clip: rect(30px, 9999px, 20px, 0); transform: translate(2px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(60px, 9999px, 20px, 0); transform: translate(0); }
+  10% { clip: rect(30px, 9999px, 40px, 0); transform: translate(2px, 0); }
+  20% { clip: rect(15px, 9999px, 90px, 0); transform: translate(-2px, 0); }
+  30% { clip: rect(70px, 9999px, 10px, 0); transform: translate(2px, 0); }
+  40% { clip: rect(50px, 9999px, 50px, 0); transform: translate(-2px, 0); }
+  50% { clip: rect(40px, 9999px, 30px, 0); transform: translate(2px, 0); }
+  60% { clip: rect(80px, 9999px, 60px, 0); transform: translate(-2px, 0); }
+  70% { clip: rect(90px, 9999px, 10px, 0); transform: translate(2px, 0); }
+  80% { clip: rect(20px, 9999px, 50px, 0); transform: translate(-2px, 0); }
+  90% { clip: rect(10px, 9999px, 80px, 0); transform: translate(2px, 0); }
+  100% { clip: rect(100px, 9999px, 70px, 0); transform: translate(-2px, 0); }
+}
+
+.static-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.12;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: color-dodge;
+}
+
+.crt-line {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 4px, 3px 100%;
+  z-index: 49;
+  pointer-events: none;
+}
+
+@keyframes glitch-bar {
+  0% { transform: scaleY(0.1); }
+  20% { transform: scaleY(0.9); }
+  40% { transform: scaleY(0.3); }
+  60% { transform: scaleY(1); }
+  80% { transform: scaleY(0.6); }
+  100% { transform: scaleY(0.2); }
+}
+.animate-glitch-bar {
+  animation: glitch-bar ease-in-out infinite alternate;
+}
